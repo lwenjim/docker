@@ -1,0 +1,25 @@
+version: '3'
+services:
+  es:
+    build: elasticsearch-kibana
+    container_name: es
+    hostname: es
+    restart: "no"
+    ports:
+      - "5601:5601"
+      - "9200:9200"
+
+  logstash:
+    build: logstash
+    container_name: log
+    restart: "always"
+    depends_on:
+      - es
+    links:
+      - "es:es"
+    volumes:
+      - "./entrypoint.sh:/entrypoint.sh"
+    environment:
+      SLEEP_SECOND: 4
+    tty: true
+    entrypoint: /entrypoint.sh -d es:9200 -c '/usr/share/logstash/bin/logstash -f /etc/logstash/conf.d/tcp.conf';

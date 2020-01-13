@@ -1,0 +1,115 @@
+version: '2'
+services:
+  php5:
+      build: ./php5
+      container_name: php5
+      ports:
+        - "9011:9011"
+        - "5201:5201"
+        - "8010:8010"
+        - "8012:8012"
+        - "8013:8013"
+        - "8014:8014"
+        - "8021:8021"
+      links:
+        - "mysql:mysql"
+        - "redis:redis"
+        # - "ssdb:ssdb"
+      volumes:
+        - "~/Documents/docker/www:/docker/www"
+        - "~/Documents/docker/log:/docker/log"
+      environment:
+        TZ: "Asia/Shanghai"
+      working_dir: "/docker"
+      restart: "no"
+      cap_add:
+        - sys_ptrace
+
+  php7:
+      build: ./php7
+      container_name: php7
+      ports:
+        - "90001:9000"
+        - "5200:5200"
+        - "8001:8001"
+        - "8002:8002"
+        - "8003:8003"
+        - "8004:8004"
+        - "8011:8011"
+      links:
+        - "mysql:mysql"
+        - "redis:redis"
+        # - "ssdb:ssdb"
+      volumes:
+        - "~/Documents/docker/www:/docker/www"
+        - "~/Documents/docker/log:/docker/log"
+      environment:
+        TZ: "Asia/Shanghai"
+      working_dir: "/docker"
+      restart: "no"
+      cap_add:
+        - sys_ptrace
+
+  nginx:
+      build: ./nginx
+      container_name: nginx
+      ports:
+        - "80:80"
+        - "443:443"
+      links:
+        - "php5:php5"
+        - "php7:php7"
+      volumes:
+        - "~/Documents/docker/www:/docker/www"
+        - "~/Documents/docker/log:/docker/log"
+        - "./nginx/conf.d:/etc/nginx/conf.d"
+      working_dir: "/docker"
+      restart: "no"
+
+  redis:
+    build: ./redis
+    container_name: redis
+    ports:
+      - "127.0.0.1:6379:6379"
+    working_dir: "/root"
+    restart: "no"
+
+  # ssdb:
+  #   build: ./ssdb
+  #   container_name: ssdb
+  #   ports:
+  #     - "8888:8888"
+  #   working_dir: "/root"
+  #   restart: "no"
+    
+  mysql:
+    container_name: mysql
+    image: mysql:5.7.23
+    command: --default-authentication-plugin=mysql_native_password
+    restart: "no"
+    ports:
+      - "127.0.0.1:33061:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: xy123456
+
+  # postgres:
+  #   container_name: postgres
+  #   image: postgres:11.2
+  #   restart: "no"
+  #   ports:
+  #     - "127.0.0.1:5432:5432"
+  #   environment:
+  #     POSTGRES_PASSWORD: xy123456
+  
+  # grafana:
+  #   container_name: grafana
+  #   image: grafana/grafana:5.4.3
+  #   restart: "no"
+  #   ports:
+  #       - 127.0.0.1:3000:3000
+  #   environment:
+  #       - TZ=Asia/Shanghai
+  #       - GF_SECURITY_ADMIN_USER=root
+  #       - GF_SECURITY_ADMIN_PASSWORD=xy123456
+  #   volumes:
+  #     - "./runtime/grafana/data:/var/lib/grafana"

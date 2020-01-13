@@ -1,0 +1,2 @@
+FROM nshou/elasticsearch-kibana
+
