@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Docker guideline for PHP Developer
 
 ## Images
@@ -46,3 +47,6 @@
     - Bind domain into your host machine. Linux/Mac: `/etc/hosts`, Windows: `C:\Windows\System32\drivers\etc\hosts`
 
     - Run `docker-compose restart`
+=======
+# docker
+>>>>>>> e043bd7749511f6d0f789dc7efc4797d05623db6
