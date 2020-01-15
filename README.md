@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Docker guideline for PHP Developer
 
 ## Images
@@ -49,4 +48,3 @@
     - Run `docker-compose restart`
 =======
 # docker
->>>>>>> e043bd7749511f6d0f789dc7efc4797d05623db6
