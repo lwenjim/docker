@@ -22,10 +22,8 @@ services:
       - "es:es"
     volumes:
       - "./entrypoint.sh:/entrypoint.sh"
-      - "/Users/jim/Workdata/yx_course/runtime/log/yx_course-2020-01-13.log:/yx_course.log:rw"
-      - "/Users/jim/Workdata/yx_hsr_v5/runtime/log/yx_hsr_v5-2020-01-13.log:/yx_hsr_v5.log:rw"
-      - "/Users/jim/Workdata/wwwlogs/dev-course-v3.classba.cn_nginx.log:/dev-course-v3.classba.cn_nginx.log:rw"
+      - "/Users/jim/Workdata:/workdata:rw"
     environment:
       SLEEP_SECOND: 4
     tty: true
-    #entrypoint: /entrypoint.sh -d es:9200 -c 'nohup /usr/share/logstash/bin/logstash -f /etc/logstash/conf.d/tcp.conf >/var/log/logstash.nohup.log 2>&1 &';
+    entrypoint: /entrypoint.sh -d es:9200 -c '/bin/bash /usr/share/logstash/bin/logstash -f /etc/logstash/conf.d/tcp.conf';

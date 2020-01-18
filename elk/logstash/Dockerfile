@@ -17,5 +17,4 @@ RUN apt-get install -y procps
 RUN apt-get install -y coreutils
 ENTRYPOINT ["/usr/share/logstash/bin/logstash", "-f", "/etc/logstash/conf.d/tcp.conf"]
 ADD tcp.conf /etc/logstash/conf.d/
-ENV CATALINA_HOME /usr/local/tomcat
 RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
