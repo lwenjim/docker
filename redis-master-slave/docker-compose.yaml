@@ -1,0 +1,15 @@
+version: '3'
+services:
+  redis-001:
+    build: ./redis-001
+    container_name: redis-001
+    hostname: redis-001
+    ports:
+      - 63790:6379
+  redis-002:
+    build: ./redis-002
+    container_name: redis-002
+    hostname: redis-002
+    ports:
+      - 63791:6379
+

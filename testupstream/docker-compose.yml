@@ -1,0 +1,20 @@
+version: "3"
+services:
+  web1:
+    container_name: web1
+    image: "centos:httpd"
+    ports:
+      - "8080:80"
+    privileged: true
+    volumes:
+      - "/app/www/web1/:/var/www/html/"
+    command: ['/usr/sbin/init']
+  web2:
+    container_name: web2
+    image: "centos:httpd"
+    ports:
+      - "8081:80"
+    privileged: true
+    volumes:
+      - "/app/www/web2/:/var/www/html/"
+    command: ['/usr/sbin/init']
